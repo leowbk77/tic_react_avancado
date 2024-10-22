@@ -1,0 +1,1 @@
+npx json-sever --watch ./src/app/json-server/db.sjon
