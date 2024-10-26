@@ -66,7 +66,7 @@ const Header = () => {
               <SearchListItem className="items-center justify-between">
                 {product.name}
                 <div>
-                  <img src={`/assets/items/${product.image}`} className="h-20 rounded-t-lg object-cover" />
+                  <img src={`/assets/items/${product.image}.jpg`} className="h-20 rounded-t-lg object-cover" />
                   <span>{product.price}</span>
                 </div>
               </SearchListItem>);
