@@ -5,6 +5,8 @@ import ProductService from "../services/product.service";
 import { ChangeEvent, useRef, useState } from "react";
 import SearchListItem from "./SearchListItem";
 import { useOnClickOutside } from "../hooks/useClickOutside";
+import { CiShoppingCart } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Header = () => {  
   const [productName, setProductName] = useState("");
@@ -75,7 +77,9 @@ const Header = () => {
           }
           
         </div>
-        <div>ShoppingCart</div>
+        <Link className="flex" to="/cart" relative="path">
+          <CiShoppingCart className="h-12 w-20"/>
+        </Link>
       </div>
     </header>
   );

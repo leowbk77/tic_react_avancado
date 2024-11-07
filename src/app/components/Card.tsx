@@ -1,7 +1,9 @@
+import { useShoppingCart } from "../contexts/ShoppingCartContext";
 import { Product } from "../interfaces/Product";
 import Button from "./Button";
 
 const Card = ({item}: Product) => {
+    const {addProduct} = useShoppingCart();
     return (
         <div className="flex h-96 bg-white p-2 w-64 rounded-2xl flex-col justify-center">
             <div className="flex justify-center">
@@ -15,7 +17,7 @@ const Card = ({item}: Product) => {
                     <span>{item.price} $</span>
                 </div>
             </div>
-            <Button>Adicionar ao carrinho</Button>
+            <Button onClick={(e) => {e.stopPropagation; addProduct(item.id, item.name, item.price)}}>Adicionar ao carrinho</Button>
         </div>
     );
 };
