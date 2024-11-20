@@ -7,8 +7,10 @@ import SearchListItem from "./SearchListItem";
 import { useOnClickOutside } from "../hooks/useClickOutside";
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useShoppingCart } from "../contexts/ShoppingCartContext";
 
 const Header = () => {  
+  const {totalQtd} = useShoppingCart();
   const [productName, setProductName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const refDropDown = useRef<HTMLUListElement>(null);
@@ -50,13 +52,13 @@ const Header = () => {
     <header className="flex fixed justify-center top-0 right-0 w-full bg-white py-3">
       <div className="mx-auto flex items-center justify-between w-11/12 gap-52">
         <div>
-          <a href="/">
+          <Link to="/" relative="path">
             <img
               src="/assets/logo.png"
               alt="Company logo"
               className="max-w-36"
             />
-          </a>
+          </Link>
         </div>
         <div className="w-4/5 relative">
           <Input onChange={(e) => handleInput(e)} />
@@ -79,6 +81,13 @@ const Header = () => {
         </div>
         <Link className="flex" to="/cart" relative="path">
           <CiShoppingCart className="h-12 w-20"/>
+          {
+            totalQtd > 0 && (
+              <div className="relative right-8 flex size-6 justify-center rounded-3xl bg-blue-400">
+                <span>{totalQtd}</span>
+              </div>
+            )
+          }
         </Link>
       </div>
     </header>

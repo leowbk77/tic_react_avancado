@@ -14,11 +14,11 @@ export interface ListItem {
 
 export interface ShoppingCartListContextData {
     items: ListItem[],
-    //totalSumAmount: number,
-    //totalQtd: number,
+    totalSumAmount: number,
+    totalQtd: number,
     addProduct: (id: number, name: string, price: number) => void;
-    //onRemove: (id: number) => void;
-    //onDecrease: (id: number, price: number) => void;
+    onRemove: (id: number) => void;
+    onDecrease: (id: number, price: number) => void;
 };
 
 const ShoppingCartContextDefaultValues = {
@@ -35,7 +35,6 @@ const ShoppingCartContext = createContext<ShoppingCartListContextData>(ShoppingC
 export const ShoppingCartProvider = ({children, }: ShoppingCartProviderProps) => {
     const [items, setItems] = useState<ListItem[]>(([]));
 
-    // outra função completamente macarrão no código
     const addProduct = (id: number, name: string, price: number) => {
         const productAlreadyInCart = items.find((product) => product.id === id);
         if(!productAlreadyInCart) {
@@ -59,8 +58,40 @@ export const ShoppingCartProvider = ({children, }: ShoppingCartProviderProps) =>
         }
     }
 
+    const onRemove = (id: number) => {
+        const filteredItems = items.filter((item) => item.id !== id);
+        setItems(filteredItems);
+    };
+
+    const onDecrease = (id: number, price: number) => {
+        const productAlreadyInCart = items.find((product) => product.id === id);
+         if(productAlreadyInCart && (productAlreadyInCart?.quantity <= 1)) {
+            return onRemove(id);
+         }
+         if(productAlreadyInCart) {
+            const updateCart = items.map((cartItem) => 
+                cartItem.id === id ? {
+                    ...cartItem,
+                    quantity: Number(cartItem.quantity) - 1,
+                    amount: cartItem.amount - price,
+                } : cartItem
+            );
+            setItems(updateCart);
+         }
+    };
+
+    const totalQtd = items.reduce((acc, item) => {
+        const qtdItem = item.quantity;
+        return acc + qtdItem;
+    }, 0);
+
+    const totalSumAmount = items.reduce((acc, item) => {
+        const amountItem = item.amount;
+        return acc + amountItem;
+    }, 0);
+
     return (
-        <ShoppingCartContext.Provider value={{items, addProduct}}>
+        <ShoppingCartContext.Provider value={{items, addProduct, onDecrease, onRemove, totalQtd, totalSumAmount}}>
             {children}
         </ShoppingCartContext.Provider>
     );

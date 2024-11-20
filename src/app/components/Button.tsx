@@ -12,9 +12,11 @@ import { tv, VariantProps } from "tailwind-variants";
 
 // constante para definir as variacoes de estilos do componente.
 const buttonVariants = tv({
+    base: "w-full rounded py-2 px-4 text-white transition-colors ease-in-out font-bold text-sm",
     variants: {
         variant: {
-            primary: "w-full rounded bg-blue-500 py-2 px-4 hover:bg-blue-700 hover:text-white",
+            primary: "bg-blue-500 hover:bg-blue-700 hover:text-black",
+            secondary: "bg-red-500 hover:bg-red-700",
         },
     },
     defaultVariants: {
