@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import Button from "../components/Button";
 import { useShoppingCart } from "../contexts/ShoppingCartContext";
+import authService from "../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
     const {items, addProduct, onRemove, onDecrease, totalSumAmount} = useShoppingCart();
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if (authService.getLoggedUser() == null) {
+            navigate("/login");
+        }
+    });
 
     return (
         <div className="flex h-full flex-col gap-12">

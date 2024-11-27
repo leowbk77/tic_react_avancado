@@ -1,1 +1,2 @@
 npx json-sever --watch ./src/app/json-server/db.sjon
+-> server foi alterado para usar o https://github.com/Kenzie-Academy-Brasil-Developers/json-server-base 

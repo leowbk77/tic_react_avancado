@@ -4,10 +4,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './app/components/Layout';
 import ShoppingCart from './app/view/ShoppingCart';
 import { ShoppingCartProvider } from './app/contexts/ShoppingCartContext';
+import Login from './app/view/Login';
+import SignUp from './app/view/SignUp';
 
 
 function App() {
   const route = createBrowserRouter([
+    {
+      path: "/register",
+      element: <SignUp />
+    },
+    {
+      path: "/login",
+      element: <Login />
+    },
     {
       element: <Layout />,
       children: [

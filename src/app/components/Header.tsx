@@ -8,6 +8,7 @@ import { useOnClickOutside } from "../hooks/useClickOutside";
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useShoppingCart } from "../contexts/ShoppingCartContext";
+import authService from "../services/auth.service";
 
 const Header = () => {  
   const {totalQtd} = useShoppingCart();
@@ -79,16 +80,22 @@ const Header = () => {
           }
           
         </div>
-        <Link className="flex" to="/cart" relative="path">
-          <CiShoppingCart className="h-12 w-20"/>
-          {
-            totalQtd > 0 && (
-              <div className="relative right-8 flex size-6 justify-center rounded-3xl bg-blue-400">
-                <span>{totalQtd}</span>
-              </div>
-            )
-          }
-        </Link>
+        <div className="flex justify-center items-center">
+
+          <Link className="flex" to="/cart" relative="path">
+            <CiShoppingCart className="h-12 w-20"/>
+            {
+              totalQtd > 0 && (
+                <div className="relative right-8 flex size-6 justify-center rounded-3xl bg-blue-400">
+                  <span>{totalQtd}</span>
+                </div>
+              )
+            }
+          </Link>
+          {!(authService.getLoggedUser() == null) && (
+            <span className="cursor-pointer" onClick={() => {authService.cleanLoggedUser(); window.location.reload()}}>Logout</span>
+          )}
+        </div>
       </div>
     </header>
   );
